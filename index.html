@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLT & AI Communities</title>
+<meta name="description" content="MLT is a global AI community and former award-winning nonprofit founded in Tokyo. Open education, open source, and open science.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;--ink:#0A0A0A;--grey:#6B6B6B;--faint:#9B9B9B;
+    --line:#E4E4E4;--line-strong:#0A0A0A;--fill:#F5F5F5;
+    --grotesk:'Archivo',Helvetica,Arial,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+    --maxw:1140px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--grotesk);line-height:1.5;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:64px 64px;background-position:center;}
+  body::before{content:"";position:fixed;inset:0;background:var(--bg);opacity:.86;z-index:-1;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,40px);}
+  a{color:inherit;text-decoration:none;}
+  .mono{font-family:var(--mono);}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--faint);}
+
+  .js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+  .js .rv.in{opacity:1;transform:none;}
+  .js .rv.d1{transition-delay:.06s;}.js .rv.d2{transition-delay:.13s;}.js .rv.d3{transition-delay:.2s;}.js .rv.d4{transition-delay:.27s;}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.78);
+    backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s;}
+  header.scrolled{border-bottom:1px solid var(--line-strong);background:rgba(255,255,255,.92);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:16px;}
+  .brand{display:flex;align-items:center;}
+  .brand img{height:36px;width:auto;display:block;}
+  .nav-links{display:flex;align-items:center;gap:28px;}
+  .nav-links a{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--grey);transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+  .btn{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.04em;
+    padding:10px 18px;border:1px solid var(--line-strong);cursor:pointer;background:none;
+    transition:background .2s,color .2s,transform .12s;display:inline-block;}
+  .btn.solid{background:var(--ink);color:var(--bg);}
+  .btn.solid:hover{background:#262626;}
+  .btn.ghost:hover{background:var(--ink);color:var(--bg);}
+  .btn:active{transform:translateY(1px);}
+
+  .hero{padding:clamp(56px,9vw,104px) 0 0;}
+  .hero-copy{max-width:720px;}
+  .hero h1{font-family:var(--grotesk);font-weight:700;font-size:clamp(38px,5.8vw,68px);
+    line-height:1.02;letter-spacing:-.03em;margin:18px 0 0;max-width:16ch;}
+  .hero .sub{margin-top:22px;font-size:clamp(15px,1.7vw,18px);color:var(--grey);max-width:62ch;}
+  .hero .sub b{color:var(--ink);font-weight:600;}
+  .cta-row{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;}
+  .hero-tags{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px;}
+  .htag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:5px 10px;border:1px solid var(--line);color:var(--grey);}
+
+  /* hero imagery — editorial bento */
+  .hero-visual{margin-top:clamp(48px,7vw,80px);position:relative;
+    padding:0 clamp(20px,4vw,40px) clamp(52px,8vw,92px);}
+  .visual-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:clamp(8px,1vw,10px);
+    max-width:var(--maxw);margin:0 auto;}
+  .visual-main{overflow:hidden;}
+  .visual-main img{width:100%;height:100%;min-height:clamp(280px,38vw,480px);object-fit:cover;display:block;
+    transition:transform .8s cubic-bezier(.2,.7,.2,1);}
+  .visual-side{display:grid;grid-template-rows:1fr 1fr;gap:clamp(8px,1vw,10px);}
+  .visual-sm{overflow:hidden;}
+  .visual-sm img{width:100%;height:100%;min-height:clamp(130px,18vw,235px);object-fit:cover;display:block;
+    transition:transform .8s cubic-bezier(.2,.7,.2,1);}
+  .visual-main:hover img,.visual-sm:hover img{transform:scale(1.02);}
+  section{padding:clamp(52px,8vw,92px) 0;border-top:1px solid var(--line);}
+  .seclabel{display:flex;align-items:baseline;gap:14px;margin-bottom:30px;}
+  .seclabel .idx{font-family:var(--mono);font-size:13px;font-weight:700;}
+  .seclabel h2{font-family:var(--grotesk);font-weight:700;font-size:clamp(24px,3.2vw,38px);letter-spacing:-.025em;}
+
+  .prob{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,5vw,60px);align-items:start;}
+  .stat{font-family:var(--grotesk);font-weight:800;font-size:clamp(72px,13vw,150px);line-height:.85;letter-spacing:-.04em;}
+  .stat sup{font-size:.34em;font-weight:700;vertical-align:super;}
+  .stat-cap{font-family:var(--mono);font-size:12px;color:var(--grey);letter-spacing:.04em;margin-top:14px;max-width:30ch;line-height:1.6;}
+  .prob p{font-size:clamp(15px,1.7vw,17.5px);color:var(--ink);margin-bottom:16px;max-width:62ch;}
+  .prob p.muted{color:var(--grey);}
+  .prob p b{font-weight:600;}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-strong);border:1px solid var(--line-strong);}
+  .card{background:var(--bg);padding:26px 24px 30px;}
+  .card .cn{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--faint);letter-spacing:.1em;}
+  .card h3{font-family:var(--grotesk);font-weight:600;font-size:21px;letter-spacing:-.02em;margin:10px 0 12px;}
+  .card p{font-size:14px;color:var(--grey);line-height:1.6;}
+  .card p b{color:var(--ink);font-weight:600;}
+  .card ul{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:7px;}
+  .card li{font-size:13px;color:var(--grey);padding-left:14px;position:relative;}
+  .card li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;background:var(--ink);}
+
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px;}
+  .metric{background:var(--bg);padding:18px 18px;}
+  .metric .mk{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.02em;}
+  .metric .mv{font-size:12.5px;color:var(--grey);margin-top:4px;}
+
+  .band{border-top:1px solid var(--line);}
+  .band .inner{padding:clamp(44px,7vw,80px) 0;}
+  .tl-intro{font-size:clamp(15px,1.7vw,17px);color:var(--grey);max-width:58ch;margin-bottom:clamp(36px,6vw,56px);line-height:1.65;}
+
+  /* timeline */
+  .timeline{position:relative;border-left:1px solid var(--line-strong);margin-left:3px;}
+  .tl-year{position:relative;padding-left:clamp(28px,4vw,44px);padding-bottom:clamp(32px,5vw,48px);}
+  .tl-year:last-child{padding-bottom:0;}
+  .tl-year::before{content:"";position:absolute;left:-4px;top:6px;width:7px;height:7px;background:var(--ink);border-radius:50%;}
+  .tl-y{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.04em;margin-bottom:16px;display:block;}
+  .tl-items{display:flex;flex-direction:column;gap:14px;}
+  .tl-item{padding-bottom:14px;border-bottom:1px solid var(--line);}
+  .tl-item:last-child{border-bottom:none;padding-bottom:0;}
+  .tl-item p{font-size:clamp(14px,1.5vw,16px);color:var(--ink);line-height:1.55;max-width:62ch;}
+  .tl-item .tl-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--faint);display:block;margin-bottom:5px;}
+  .tl-item p.muted{color:var(--grey);font-size:14px;}
+
+  .join{background:var(--ink);color:var(--bg);border-top:1px solid var(--line-strong);}
+  .join .inner{padding:clamp(56px,8vw,100px) 0;}
+  .join .eyebrow{color:#7c7c7c;}
+  .join h2{font-family:var(--grotesk);font-weight:700;font-size:clamp(30px,4.6vw,52px);
+    letter-spacing:-.03em;margin:16px 0 0;}
+  .join .sub{color:#b8b8b8;margin-top:18px;max-width:52ch;font-size:clamp(15px,1.6vw,17px);}
+  .join-grid{margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#262626;border:1px solid #262626;}
+  .join-card{background:#111;padding:24px 22px 28px;transition:background .25s;}
+  .join-card:hover{background:#1a1a1a;}
+  .join-card .jk{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6f6f6f;}
+  .join-card h3{font-family:var(--grotesk);font-weight:600;font-size:18px;margin:10px 0 8px;letter-spacing:-.02em;}
+  .join-card p{font-size:13px;color:#9b9b9b;line-height:1.55;margin-bottom:16px;}
+  .join-card .link{font-family:var(--mono);font-size:12px;color:#fff;border-bottom:1px solid #3a3a3a;padding-bottom:2px;transition:border-color .2s;}
+  .join-card .link:hover{border-color:#fff;}
+  .join-cta{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;}
+  .join .btn.ghost{color:#fff;border-color:#3a3a3a;}
+  .join .btn.ghost:hover{background:#fff;color:var(--ink);}
+
+  footer{padding:28px 0 44px;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:11.5px;color:var(--faint);letter-spacing:.06em;gap:16px;flex-wrap:wrap;}
+  .footer-links{display:flex;gap:20px;flex-wrap:wrap;}
+  .footer-links a{transition:color .2s;}
+  .footer-links a:hover{color:var(--ink);}
+
+  @media(max-width:860px){
+    .visual-grid{grid-template-columns:1fr;}
+    .visual-side{grid-template-columns:1fr 1fr;grid-template-rows:none;}
+    .prob{grid-template-columns:1fr;gap:24px;}
+    .cards{grid-template-columns:1fr;}
+    .metrics{grid-template-columns:1fr 1fr;}
+    .join-grid{grid-template-columns:1fr;}
+  }
+  @media(max-width:560px){
+    .nav-links{display:none;}
+    #mobcta{display:inline-block !important;}
+    .metrics{grid-template-columns:1fr;}
+    .stat{font-size:clamp(64px,22vw,90px);}
+    .visual-side{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#" class="brand"><img src="assets/mlt-aic-logo.png" alt="MLT &amp; AIC"></a>
+    <div class="nav-links">
+      <a href="#community">Community</a>
+      <a href="#pillars">Mission</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#join" class="btn ghost">Join us</a>
+    </div>
+    <a href="#join" class="btn ghost" id="mobcta" style="display:none">Join</a>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap hero-copy">
+      <div class="eyebrow rv in">// mlt & AI Communities</div>
+      <h1 class="rv in d1">Learn, build, and ship AI together.</h1>
+      <p class="sub rv in d2">MLT is a global AI community and former award-winning nonprofit founded in Tokyo. Rooted in open education, open source, and open science, we bring together engineers, researchers, and domain experts from around the world to collaborate, share knowledge, and advance the field of AI.</p>
+      <div class="cta-row rv in d3">
+        <a href="https://luma.com/AI-Communities" class="btn solid" target="_blank" rel="noopener">Upcoming events</a>
+        <a href="https://discord.gg/65ANHGFUG" class="btn ghost" target="_blank" rel="noopener">Join Discord</a>
+      </div>
+      <div class="hero-tags rv in d4">
+        <span class="htag">Research</span>
+        <span class="htag">Engineering</span>
+        <span class="htag">Applications</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="visual-grid rv in d2">
+        <div class="visual-main">
+          <img src="assets/community-vr.png" alt="MLT hands-on VR lab" loading="eager">
+        </div>
+        <div class="visual-side">
+          <div class="visual-sm">
+            <img src="assets/community-workshop.png" alt="MLT workshop session" loading="eager">
+          </div>
+          <div class="visual-sm">
+            <img src="assets/community-talk.png" alt="Deep learning talk at MLT, Tokyo" loading="eager">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="community">
+    <div class="wrap">
+      <div class="seclabel rv"><span class="idx">00</span><h2>The community</h2></div>
+      <div class="prob">
+        <div class="rv">
+          <div class="stat"><span id="counter">0</span><sup>+</sup></div>
+          <div class="stat-cap">members across research, engineering, and applied AI, from Tokyo to every continent.</div>
+        </div>
+        <div class="rv d1">
+          <p class="muted">Since 2017, Machine Learning Tokyo has grown from a local study group into one of the world's most active technical AI communities. We organize talks, workshops, hackathons, and paper reading sessions, both online and in person.</p>
+          <p>Whether you're building your first LLM application, contributing to open-source AI, or publishing research at NeurIPS, there's a place for you here. Our events have welcomed more than 30,000 participants from around the world, while our GitHub organization develops open-source tools, educational curricula, and research. Everyone is welcome to learn, contribute, and lead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pillars">
+    <div class="wrap">
+      <div class="seclabel rv"><span class="idx">01</span><h2>What we stand for</h2></div>
+      <div class="cards">
+        <div class="card rv">
+          <div class="cn">A. OPEN EDUCATION</div>
+          <h3>Learn by doing</h3>
+          <p>Free workshops, study sessions, and curated lecture series from Stanford, MIT, Berkeley, and beyond, translated, annotated, and run live with the community.</p>
+          <ul>
+            <li>Dive into Deep Learning study groups</li>
+            <li>MLT __init__ paper reading sessions</li>
+            <li>Math for ML workshops</li>
+          </ul>
+        </div>
+        <div class="card rv d1">
+          <div class="cn">B. OPEN SOURCE</div>
+          <h3>Build in public</h3>
+          <p>Volunteer teams ship real projects on our GitHub org, from ML Search to Edge AI labs, annotation tools, and AI-for-social-good applications.</p>
+          <ul>
+            <li>50+ public repositories</li>
+            <li>Community-led from idea to product</li>
+            <li>Apache 2.0 &amp; MIT licensed</li>
+          </ul>
+        </div>
+        <div class="card rv d2">
+          <div class="cn">C. OPEN SCIENCE</div>
+          <h3>Research together</h3>
+          <p>Community-led research, annotated paper collections, and collaborative experiments, bridging academia and industry without gatekeeping.</p>
+          <ul>
+            <li>Published research at top conference workshops</li>
+            <li>Cross-border collaboration since 2017</li>
+            <li>Former Nonprofit 一般社団法人 · award-winning</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="metrics rv d1">
+        <div class="metric"><div class="mk">SINCE</div><div class="mv">2017 · Tokyo, Japan</div></div>
+        <div class="metric"><div class="mk">EVENTS</div><div class="mv">350+ talks, workshops &amp; hackathons</div></div>
+        <div class="metric"><div class="mk">PARTICIPANTS</div><div class="mv">30,000+ from all over the world</div></div>
+        <div class="metric"><div class="mk">TOPICS</div><div class="mv">LLMs, Agents, Generative AI, Evaluation</div></div>
+        <div class="metric"><div class="mk">FORMAT</div><div class="mv">Hybrid, global &amp; remote-friendly</div></div>
+        <div class="metric"><div class="mk">STATUS</div><div class="mv">Nonprofit · open to all</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline" class="band">
+    <div class="wrap inner">
+      <div class="seclabel rv"><span class="idx">02</span><h2>Timeline</h2></div>
+      <p class="tl-intro rv">Nine years of community, research, and open source, from a study group in Tokyo to a global nonprofit presenting at NeurIPS, CHI, and beyond.</p>
+
+      <div class="timeline rv d1">
+        <div class="tl-year">
+          <span class="tl-y">2017</span>
+          <div class="tl-items">
+            <div class="tl-item">
+              <span class="tl-tag">Founded</span>
+              <p>Community started in Tokyo, Japan: study sessions, talks, and workshops for machine learning practitioners.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-year">
+          <span class="tl-y">2018</span>
+          <div class="tl-items">
+            <div class="tl-item">
+              <span class="tl-tag">Art Machines · Hong Kong</span>
+              <p>Presented <em>Multimedia Art: The Synthesis of Machine-generated Poetry and Virtual Landscapes</em> at Art Machines: International Symposium on Computational Media Art.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-year">
+          <span class="tl-y">2019</span>
+          <div class="tl-items">
+            <div class="tl-item">
+              <span class="tl-tag">Nonprofit · September</span>
+              <p>Registered as a nonprofit organization in Japan (一般社団法人).</p>
+            </div>
+            <div class="tl-item">
+              <span class="tl-tag">Rakuten Technology &amp; Innovation Award · November</span>
+              <p>Won the Rakuten Technology &amp; Innovation Awards for community impact in AI education and open source.</p>
+            </div>
+            <div class="tl-item">
+              <span class="tl-tag">NeurIPS · Vancouver</span>
+              <p>Presented <em>Creative GANs for generating poems, lyrics, and metaphors</em> at the 33rd Conference on Neural Information Processing Systems.</p>
+            </div>
+            <div class="tl-item">
+              <span class="tl-tag">NeurIPS Workshop · ML for the Developing World</span>
+              <p>Presented <em>Quantized deep learning models on low-power edge devices for robotic systems</em>.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-year">
+          <span class="tl-y">2020</span>
+          <div class="tl-items">
+            <div class="tl-item">
+              <span class="tl-tag">Global shift</span>
+              <p>Moved from in-person to online sessions, reaching members across time zones while keeping the community connected.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-year">
+          <span class="tl-y">2021</span>
+          <div class="tl-items">
+            <div class="tl-item">
+              <span class="tl-tag">Edge AI Lab · August</span>
+              <p>Launched Edge AI Lab, bringing machine learning to microcontrollers and low-power edge devices.</p>
+            </div>
+            <div class="tl-item">
+              <span class="tl-tag">CHI Conference · Human Factors in Computing Systems</span>
+              <p>Presented <em>Creative immersive AI: emerging challenges and opportunities for creative applications of AI in immersive media</em>.</p>
+            </div>
+            <div class="tl-item">
+              <span class="tl-tag">ML Search</span>
+              <p>Shipped ML Search, a search engine and knowledge platform for machine learning resources.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-year">
+          <span class="tl-y">2022</span>
+          <div class="tl-items">
+            <div class="tl-item">
+              <span class="tl-tag">BLOOM &amp; ROOTS</span>
+              <p>Contributions to the BLOOM large language model and the ROOTS corpus, community-led open science at scale.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-year">
+          <span class="tl-y">2025</span>
+          <div class="tl-items">
+            <div class="tl-item">
+              <span class="tl-tag">New York Chapter</span>
+              <p>Launched MLT &amp; AI Communities chapter in New York, expanding the global network beyond Tokyo.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-year">
+          <span class="tl-y">2026</span>
+          <div class="tl-items">
+            <div class="tl-item">
+              <span class="tl-tag">Open Evals</span>
+              <p>Launched Open Evals, open evaluation tooling for the AI community.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="join" class="join">
+    <div class="wrap inner">
+      <div class="eyebrow rv">// get involved</div>
+      <h2 class="rv d1">Join the community.</h2>
+      <p class="sub rv d2">No application, no fee. Show up to an event, hop in Discord, or start contributing on GitHub. Tokyo is where our roots are, our community is everywhere.</p>
+
+      <div class="join-grid rv d2">
+        <div class="join-card">
+          <div class="jk">01 · Events</div>
+          <h3>Attend a session</h3>
+          <p>Workshops, talks, and study sessions on Luma. Online and in Tokyo. Bring your laptop.</p>
+          <a href="https://luma.com/AI-Communities" class="link" target="_blank" rel="noopener">Join Luma →</a>
+        </div>
+        <div class="join-card">
+          <div class="jk">02 · Chat</div>
+          <h3>Join Discord</h3>
+          <p>Where discussions happen: text, voice, project coordination, and help between events.</p>
+          <a href="https://discord.gg/65ANHGFUG" class="link" target="_blank" rel="noopener">Join Discord →</a>
+        </div>
+        <div class="join-card">
+          <div class="jk">03 · Build</div>
+          <h3>Contribute on GitHub</h3>
+          <p>Fork a repo, open a PR, or start a new project. All skill levels welcome.</p>
+          <a href="https://github.com/Machine-Learning-Tokyo" class="link" target="_blank" rel="noopener">Contribute on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="join-cta rv d3">
+        <a href="https://mltaicommunities.substack.com/" class="btn ghost" target="_blank" rel="noopener">Newsletter</a>
+        <a href="https://www.youtube.com/MLTOKYO" class="btn ghost" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://join.slack.com/t/machinelearningtokyo/shared_invite/zt-p0a3xn87-725qiTI6SD95VmCisd148g" class="btn ghost" target="_blank" rel="noopener">Slack</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>© 2026 Machine Learning Tokyo</span>
+  <div class="footer-links">
+    <a href="https://github.com/Machine-Learning-Tokyo/MLT_starterkit" target="_blank" rel="noopener">Code of conduct</a>
+    <a href="https://www.linkedin.com/company/mltokyo/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.meetup.com/machine-learning-tokyo/" target="_blank" rel="noopener">Meetup</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var hdr = document.getElementById('hdr');
+  var onScroll = function(){ hdr.classList.toggle('scrolled', window.scrollY > 8); };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.16});
+  document.querySelectorAll('.rv:not(.in)').forEach(function(el){ io.observe(el); });
+
+  var counter = document.getElementById('counter');
+  var counted = false;
+  var cio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting && !counted){
+        counted = true;
+        var target = 20, start = null, dur = 1200;
+        var step = function(ts){
+          if(!start) start = ts;
+          var p = Math.min((ts-start)/dur, 1);
+          var eased = 1 - Math.pow(1-p, 3);
+          counter.textContent = Math.round(eased*target) + 'k';
+          if(p<1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    });
+  }, {threshold:.5});
+  cio.observe(counter);
+})();
+</script>
+<script src="/analytics.js" defer></script>
+</body>
+</html>
