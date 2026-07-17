@@ -2,31 +2,22 @@
 
 A global community of 20,000 engineers, researchers and domain experts in AI learning, collaborating, and contributing to open source and open science.
 
-- [Website](mlt.ai)
+- [Website](https://mlt.ai)
 - [Events](https://luma.com/AI-Communities)
 - [Newsletter](https://mltaicommunities.substack.com/)
 
 ## Run locally
 
 ```bash
-npm install
-cp .env.example .env   # set ANALYTICS_TOKEN to a secret string
-npm start
+python3 -m http.server 8765
 ```
 
-If port 8765 is already in use (e.g. an old static server), stop it first:
+Open http://localhost:8765
 
-```bash
-lsof -ti :8765 | xargs kill
-```
+## Deploy
 
-- Site: http://localhost:8765
-- Analytics dashboard: http://localhost:8765/dashboard.html
+This is a static site (`index.html` + `assets/`). Deploy to any static host, then point your Namecheap domain at it.
 
-To use a different port, change `PORT` in `.env` and restart.
+**Easy options:** [Cloudflare Pages](https://pages.cloudflare.com), [Netlify](https://netlify.com), or [GitHub Pages](https://pages.github.com)
 
-## Analytics
-
-The site records page views and referrer sources (e.g. Google, Twitter, direct). Data is stored locally in `data/analytics.json`. The dashboard is protected by `ANALYTICS_TOKEN` in `.env`.
-
-**Note:** Analytics requires the Node server (`npm start`). Static hosting alone (e.g. GitHub Pages) will not collect visits unless you deploy the server or adapt the API.
+Connect your GitHub repo, set the publish directory to `/` (root), and add `mlt.ai` as a custom domain in the host's dashboard. In Namecheap → Advanced DNS, point `www` (CNAME) and `@` (ALIAS or A record) to the values your host provides.
