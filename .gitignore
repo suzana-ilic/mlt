@@ -1,3 +1,4 @@
-node_modules/
-data/analytics.json
+.DS_Store
 .env
+data/
+node_modules/
